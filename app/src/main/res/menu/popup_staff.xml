@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/Delhi"
+        android:title="1 Chef" />
+    <item
+        android:id="@+id/Gurugram"
+        android:title="1 Chef + 1 Helper" />
+
+</menu>

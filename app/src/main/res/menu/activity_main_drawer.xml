@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_add_job"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="New job posting" />
+        <item
+            android:id="@+id/nav_jobs_posted"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Jobs Posted" />
+
+        <item
+            android:id="@+id/nav_new_party_bookings"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Bookings from Partners" />
+        <item
+            android:id="@+id/nav_accepted_jobs"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Accepted Jobs" />
+
+        <item
+            android:id="@+id/nav_completed_jobs"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Completed Jobs" />
+        <item
+            android:id="@+id/nav_affiliate_partners"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Affiliate Partners" />
+        <item
+            android:id="@+id/nav_chef_list"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Chef List" />
+
+
+    </group>
+</menu>

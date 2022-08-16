@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/Head_C1hef"
+        android:title="Birthday Party" />
+    <item
+        android:id="@+id/Guru2gram1"
+        android:title="Marriage Anniversary" />
+    <item
+        android:id="@+id/C2DP"
+        android:title="Kitty Party" />
+
+    <item
+        android:id="@+id/Heawd_Chef"
+        android:title="Roka Ceremony" />
+    <item
+        android:id="@+id/Guruagram1"
+        android:title="Ring Ceremony" />
+    <item
+        android:id="@+id/CDfP"
+        android:title="Bachelor Party" />
+
+    <item
+        android:id="@+id/Heaad_Chef"
+        android:title="Get together" />
+    <item
+        android:id="@+id/Guruagraam1"
+        android:title="Baby Shower" />
+    <item
+        android:id="@+id/CDhP"
+        android:title="Home Wedding" />
+
+    <item
+        android:id="@+id/Head_aCheaf"
+        android:title="Grih Pravesh" />
+    <item
+        android:id="@+id/Gurugraqm1"
+        android:title="Pooja" />
+    <item
+        android:id="@+id/CDPa"
+        android:title="Home Party" />
+
+</menu>

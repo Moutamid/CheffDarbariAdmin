@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/Delhi"
+        android:title="Delhi" />
+    <item
+        android:id="@+id/Gurugram"
+        android:title="Gurugram" />
+    <item
+        android:id="@+id/Noida"
+        android:title="Noida" />
+    <item
+        android:id="@+id/Greater_Noida"
+        android:title="Greater Noida" />
+    <item
+        android:id="@+id/Ghaziabad"
+        android:title="Ghaziabad" />
+    <item
+        android:id="@+id/Faridabad"
+        android:title="Faridabad" />
+
+    <item
+        android:id="@+id/Bangalore"
+        android:title="Bangalore" />
+    <item
+        android:id="@+id/Pune"
+        android:title="Pune" />
+
+    <item
+        android:id="@+id/Mumbai"
+        android:title="Mumbai" />
+    <item
+        android:id="@+id/Hyderabad"
+        android:title="Hyderabad" />
+    <item
+        android:id="@+id/Chandigarh"
+        android:title="Chandigarh" />
+
+
+
+</menu>

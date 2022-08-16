@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_add_job">
+
+    <fragment
+        android:id="@+id/nav_add_job"
+        android:name="com.moutamid.cheffdarbariadmin.ui.AddJobFragment"
+        android:label="New job posting"
+        tools:layout="@layout/fragment_add_job" />
+
+    <fragment
+        android:id="@+id/nav_jobs_posted"
+        android:name="com.moutamid.cheffdarbariadmin.ui.JobsPostedFragment"
+        android:label="New Jobs Posted"
+        tools:layout="@layout/fragment_jobs_posted" />
+
+    <fragment
+        android:id="@+id/nav_new_party_bookings"
+        android:name="com.moutamid.cheffdarbariadmin.ui.NewPartyBookingsFragment"
+        android:label="Bookings from Partners"
+        tools:layout="@layout/fragment_new_party_bookings" />
+
+    <fragment
+        android:id="@+id/nav_accepted_jobs"
+        android:name="com.moutamid.cheffdarbariadmin.ui.AcceptedJobsFragment"
+        android:label="Accepted Jobs"
+        tools:layout="@layout/fragment_accepted_jobs" />
+
+    <fragment
+        android:id="@+id/nav_completed_jobs"
+        android:name="com.moutamid.cheffdarbariadmin.ui.CompletedJobsFragment"
+        android:label="Completed Jobs"
+        tools:layout="@layout/fragment_completed_jobs" />
+
+    <fragment
+        android:id="@+id/nav_affiliate_partners"
+        android:name="com.moutamid.cheffdarbariadmin.ui.AffiliatePartnersFragment"
+        android:label="Affiliated Partners"
+        tools:layout="@layout/fragment_affiliate_partners" />
+
+    <fragment
+        android:id="@+id/nav_chef_list"
+        android:name="com.moutamid.cheffdarbariadmin.ui.ChefListFragment"
+        android:label="Chef List"
+        tools:layout="@layout/fragment_chef_list" />
+
+
+</navigation>

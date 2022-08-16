@@ -1,0 +1,758 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.AddJobFragment">
+
+    <RelativeLayout
+        android:id="@+id/topi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iii"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginHorizontal="20dp"
+            android:src="@drawable/logoo" />
+
+        <TextView
+            android:id="@+id/topText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:text="New Job"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/topi">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/affiliateCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="2dp"
+                app:cardElevation="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_number"
+                        android:padding="15dp">
+
+                        <TextView
+                            android:id="@+id/occasionTypeTv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="5dp"
+                            android:background="@color/white"
+                            android:hint="Occasion Type "
+                            android:textSize="20sp" />
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ic_baseline_keyboard_arrow_down_24" />
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/bg_number"
+                        android:orientation="horizontal"
+                        android:padding="15dp">
+
+                        <EditText
+                            android:id="@+id/nameEt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="5dp"
+                            android:background="@color/white"
+                            android:hint="Customer Name"
+                            android:textSize="20sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_number"
+                        android:orientation="horizontal"
+                        android:padding="15dp">
+
+                        <EditText
+                            android:id="@+id/numberEt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="5dp"
+                            android:background="@color/white"
+                            android:hint="Phone Number"
+                            android:textSize="20sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_number"
+                        android:orientation="horizontal"
+                        android:padding="15dp">
+
+                        <EditText
+                            android:id="@+id/party_addressEt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="5dp"
+                            android:background="@color/white"
+                            android:hint="Party Address"
+                            android:textSize="20sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_number"
+                        android:orientation="horizontal"
+                        android:padding="15dp">
+
+                        <EditText
+                            android:id="@+id/locationEt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="5dp"
+                            android:background="@color/white"
+                            android:hint="Location"
+                            android:textSize="20sp" />
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_number"
+                        android:padding="15dp">
+
+                        <TextView
+                            android:id="@+id/cityTv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="5dp"
+                            android:background="@color/white"
+                            android:hint="City"
+                            android:textSize="20sp" />
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ic_baseline_keyboard_arrow_down_24" />
+                    </RelativeLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_number"
+                        android:orientation="horizontal"
+                        android:padding="15dp">
+
+                        <EditText
+                            android:id="@+id/number_of_people"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="5dp"
+                            android:background="@color/white"
+                            android:hint="Number of People"
+                            android:textSize="20sp" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_number"
+                        android:orientation="horizontal"
+                        android:padding="15dp">
+
+                        <EditText
+                            android:id="@+id/dateEt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="5dp"
+                            android:background="@color/white"
+                            android:hint="Date"
+                            android:textSize="20sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_number"
+                        android:orientation="horizontal"
+                        android:padding="15dp">
+
+                        <EditText
+                            android:id="@+id/timeEt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="5dp"
+                            android:background="@color/white"
+                            android:hint="Time"
+                            android:textSize="20sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_number"
+                        android:orientation="horizontal"
+                        android:padding="15dp">
+
+                        <EditText
+                            android:id="@+id/no_of_dishesEt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="5dp"
+                            android:background="@color/white"
+                            android:hint="No. of Dishes"
+                            android:textSize="20sp" />
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_number"
+                        android:padding="15dp">
+
+                        <TextView
+                            android:id="@+id/dishTypeTv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="5dp"
+                            android:background="@color/white"
+                            android:hint="Dish Type "
+                            android:textSize="20sp" />
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ic_baseline_keyboard_arrow_down_24" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_number"
+                        android:padding="15dp">
+
+                        <TextView
+                            android:id="@+id/staffTv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="5dp"
+                            android:background="@color/white"
+                            android:hint="Staffs Required"
+                            android:textSize="20sp" />
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ic_baseline_keyboard_arrow_down_24" />
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_number"
+                        android:orientation="horizontal"
+                        android:padding="15dp">
+
+                        <EditText
+                            android:id="@+id/paymentEt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="5dp"
+                            android:background="@color/white"
+                            android:hint="Payment Rs."
+                            android:textSize="20sp" />
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_number"
+                        android:padding="15dp">
+
+                        <TextView
+                            android:id="@+id/burnersTv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="5dp"
+                            android:background="@color/white"
+                            android:hint="Number of Gas Burners"
+                            android:textSize="20sp" />
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ic_baseline_keyboard_arrow_down_24" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="20dp"
+                        android:text="Kitchen Tools Availability"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/tandoorCheckBox_add_job"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tandoor" />
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/otgCheckBox_add_job"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:text="OTG" />
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/microwaveCheckBox_add_job"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:text="Microwave" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/mixer_grinderCheckBox_add_job"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Mixer Grinder " />
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/food_processorCheckBox_add_job"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:text="Food Processor" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/hand_blenderCheckBox_add_job"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Hand Blender" />
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/utensilsCheckBox_add_job"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:text="Utensils" />
+
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="20dp"
+                        android:text="Cuisines"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/northIndianCheckBox_add_job"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="North Indian" />
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/southIndianCheckBox_add_job"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:text="South Indian" />
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/chineseCheckBox_add_job"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:text="Chinese" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/mexicanCheckBox_add_job"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Mexican" />
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/italianCheckBox_add_job"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:text="Italian" />
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/continentalCheckBox_add_job"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:text="Continental" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/thaiCheckBox_add_job"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Thai" />
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/barbecueCheckBox_add_job"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:text="Barbecue" />
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/home_foodCheckBox_add_job"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:text="Home Food" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="20dp"
+                        android:text="Add breakfast items"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="10dp">
+
+                        <EditText
+                            android:id="@+id/breakfastEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toStartOf="@id/breakfastAddBtn"
+                            android:hint="Add a new item" />
+
+                        <ImageView
+                            android:id="@+id/breakfastAddBtn"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ic_baseline_add_circle_24" />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/breakFastTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/default_blue"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="20dp"
+                        android:text="Lunch "
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="10dp">
+
+                        <EditText
+                            android:id="@+id/lunchEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toStartOf="@id/lunchAddBtn"
+                            android:hint="Add a new item" />
+
+                        <ImageView
+                            android:id="@+id/lunchAddBtn"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ic_baseline_add_circle_24" />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/lunchTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/default_blue"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="20dp"
+                        android:text="Dinner"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="10dp">
+
+                        <EditText
+                            android:id="@+id/dinnerEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toStartOf="@id/dinnerAddBtn"
+                            android:hint="Add a new item" />
+
+                        <ImageView
+                            android:id="@+id/dinnerAddBtn"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ic_baseline_add_circle_24" />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/dinnerTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/default_blue"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="20dp"
+                        android:text="Snacks"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="10dp">
+
+                        <EditText
+                            android:id="@+id/snacksEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toStartOf="@id/snacksAddBtn"
+                            android:hint="Add a new item" />
+
+                        <ImageView
+                            android:id="@+id/snacksAddBtn"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ic_baseline_add_circle_24" />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/snacksTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/default_blue"
+                        android:textSize="18sp" />
+
+                    <Button
+                        android:id="@+id/submitBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginBottom="40dp"
+                        android:backgroundTint="@color/default_yellow"
+                        android:text="Submit"
+                        android:textColor="@color/white" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+</RelativeLayout>
