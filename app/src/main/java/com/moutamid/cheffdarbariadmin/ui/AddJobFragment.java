@@ -1,23 +1,34 @@
 package com.moutamid.cheffdarbariadmin.ui;
 
 import android.app.ProgressDialog;
+import android.app.TimePickerDialog;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.moutamid.cheffdarbariadmin.R;
+import com.moutamid.cheffdarbariadmin.activities.NavigationDrawerActivity;
 import com.moutamid.cheffdarbariadmin.databinding.FragmentAddJobBinding;
 import com.moutamid.cheffdarbariadmin.models.JobsAdminModel;
 import com.moutamid.cheffdarbariadmin.utils.Constants;
+
+import java.util.Calendar;
+import java.util.TimeZone;
 
 public class AddJobFragment extends Fragment {
 
@@ -33,6 +44,9 @@ public class AddJobFragment extends Fragment {
         progressDialog = new ProgressDialog(requireContext());
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading...");
+
+        jobsAdminModel.time = Constants.NULL;
+        jobsAdminModel.date = Constants.NULL;
 
         b.occasionTypeTv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,6 +154,11 @@ public class AddJobFragment extends Fragment {
             jobsAdminModel.breakfast_items = b.breakFastTextView.getText().toString();
             b.breakfastEditText.setText("");
         });
+        b.breakFastClear.setOnClickListener(v -> {
+            b.breakFastTextView.setText("");
+            jobsAdminModel.breakfast_items = "";
+            Toast.makeText(requireContext(), "Done", Toast.LENGTH_SHORT).show();
+        });
         b.lunchAddBtn.setOnClickListener(v -> {
             String item = b.lunchEditText.getText().toString();
 
@@ -148,6 +167,11 @@ public class AddJobFragment extends Fragment {
             b.lunchTextView.setText(b.lunchTextView.getText().toString() + "-" + item + "\n");
             jobsAdminModel.lunch_items = b.lunchTextView.getText().toString();
             b.lunchEditText.setText("");
+        });
+        b.lunchClear.setOnClickListener(v -> {
+            b.lunchTextView.setText("");
+            jobsAdminModel.lunch_items = "";
+            Toast.makeText(requireContext(), "Done", Toast.LENGTH_SHORT).show();
         });
         b.dinnerAddBtn.setOnClickListener(v -> {
             String item = b.dinnerEditText.getText().toString();
@@ -158,6 +182,11 @@ public class AddJobFragment extends Fragment {
             jobsAdminModel.dinner_items = b.dinnerTextView.getText().toString();
             b.dinnerEditText.setText("");
         });
+        b.dinnerClear.setOnClickListener(v -> {
+            b.dinnerTextView.setText("");
+            jobsAdminModel.dinner_items = "";
+            Toast.makeText(requireContext(), "Done", Toast.LENGTH_SHORT).show();
+        });
         b.snacksAddBtn.setOnClickListener(v -> {
             String item = b.snacksEditText.getText().toString();
 
@@ -167,7 +196,65 @@ public class AddJobFragment extends Fragment {
             jobsAdminModel.snack_items = b.snacksTextView.getText().toString();
             b.snacksEditText.setText("");
         });
+        b.snacksClear.setOnClickListener(v -> {
+            b.snacksTextView.setText("");
+            jobsAdminModel.snack_items = "";
+            Toast.makeText(requireContext(), "Done", Toast.LENGTH_SHORT).show();
+        });
+        b.dateEt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                long today;
+                Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+                calendar.clear();
+                today = MaterialDatePicker.todayInUtcMilliseconds();
+                final MaterialDatePicker.Builder singleDateBuilder = MaterialDatePicker.Builder.datePicker();
+                singleDateBuilder.setTitleText("Select Date");
+                singleDateBuilder.setSelection(today);
+                final MaterialDatePicker materialDatePicker = singleDateBuilder.build();
+                materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
+                    @Override
+                    public void onPositiveButtonClick(Object selection) {
+                        jobsAdminModel.date = materialDatePicker.getHeaderText();
+                        b.dateEt.setText(materialDatePicker.getHeaderText());
+                    }
+                });
+                materialDatePicker.show(getFragmentManager(), "DATE");
 
+            }
+        });
+        b.timeEt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int mYear, mMonth, mDay, hour, mMinute;
+                String amPm;
+                final Calendar c = Calendar.getInstance();
+                hour = c.get(Calendar.HOUR);
+                mMinute = c.get(Calendar.MINUTE);
+                // Launch Time Picker Dialog
+                TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(),
+                        new TimePickerDialog.OnTimeSetListener() {
+                            @RequiresApi(api = Build.VERSION_CODES.N)
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay,
+                                                  int minute) {
+                                String current_hour = hourOfDay + "";
+                                if (current_hour.length() == 1)
+                                    current_hour = "0" + current_hour;
+
+                                String current_minute = minute + "";
+                                if (current_minute.length() == 1)
+                                    current_minute = "0" + current_minute;
+
+
+                                jobsAdminModel.time = current_hour + ":" + current_minute;
+                                b.timeEt.setText(jobsAdminModel.time);
+                            }
+
+                        }, hour, mMinute, true);
+                timePickerDialog.show();
+            }
+        });
         b.submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -185,8 +272,12 @@ public class AddJobFragment extends Fragment {
                                 progressDialog.dismiss();
                                 if (task.isSuccessful()) {
                                     Toast.makeText(requireContext(), "Success", Toast.LENGTH_SHORT).show();
-                                    requireActivity().recreate();
-                                }else {
+//                                    requireActivity().recreate();
+                                    Intent intent = new Intent(requireContext(), NavigationDrawerActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    requireActivity().finish();
+                                    startActivity(intent);
+                                } else {
                                     Toast.makeText(requireContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -204,8 +295,6 @@ public class AddJobFragment extends Fragment {
         String party_addres = b.partyAddressEt.getText().toString();
         String location = b.locationEt.getText().toString();
         String number_of_people = b.numberOfPeople.getText().toString();
-        String date = b.dateEt.getText().toString();
-        String time = b.timeEt.getText().toString();
         String no_of_dishes = b.noOfDishesEt.getText().toString();
         String payment = b.paymentEt.getText().toString();
 
@@ -229,14 +318,14 @@ public class AddJobFragment extends Fragment {
             toast("Please enter number of people");
             return true;
         } else jobsAdminModel.number_of_people = number_of_people;
-        if (date.isEmpty()) {
+        if (jobsAdminModel.date.equals(Constants.NULL)) {
             toast("Please enter date");
             return true;
-        } else jobsAdminModel.date = date;
-        if (time.isEmpty()) {
+        }
+        if (jobsAdminModel.time.equals(Constants.NULL)) {
             toast("Please enter time");
             return true;
-        } else jobsAdminModel.time = time;
+        }
         if (no_of_dishes.isEmpty()) {
             toast("Please enter your number of dishes");
             return true;
@@ -307,6 +396,8 @@ public class AddJobFragment extends Fragment {
             jobsAdminModel.cuisines_list.add(b.
                     homeFoodCheckBoxAddJob.getText().toString());
         }
+        String text = System.currentTimeMillis() + "";
+        jobsAdminModel.id = text.substring(text.length() - 6);
 
         return false;
     }

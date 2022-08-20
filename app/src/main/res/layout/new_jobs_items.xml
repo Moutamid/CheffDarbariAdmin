@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/newjobscardview"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
@@ -14,57 +15,72 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:orientation="horizontal">
+
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
                 android:background="@color/lightgreen"
                 android:gravity="center"
                 android:padding="10dp"
+                android:layout_margin="10dp"
                 android:text="New Booking"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
-
-
-        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/grey" />
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
+            android:layout_marginHorizontal="10dp"
             android:layout_marginTop="10dp"
-            android:text="Name"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
+            android:orientation="vertical">
 
             <TextView
+                android:id="@+id/name_new_jobs_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginHorizontal="20dp"
-                android:text="Staff required"
+                android:layout_marginTop="10dp"
+                android:text="Name"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/id_number_new_jobs_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                android:text="ID Number"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/staff_required_new_jobs_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                android:text="Staff required"
+                android:textColor="@color/black"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/payment_new_jobs_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -73,26 +89,21 @@
                 android:layout_marginTop="10dp"
                 android:text="Payment Rs"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
-
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                android:textSize="13sp" />
 
 
             <TextView
+                android:id="@+id/occasion_new_jobs_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="10dp"
                 android:text="Occasion"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="13sp" />
 
             <TextView
+                android:id="@+id/party_date_new_jobs_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -100,26 +111,21 @@
                 android:layout_marginTop="10dp"
                 android:text="Party Date"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
-
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                android:textSize="13sp" />
 
 
             <TextView
+                android:id="@+id/number_of_people_new_jobs_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="10dp"
                 android:text="Number of People"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="13sp" />
 
             <TextView
+                android:id="@+id/time_new_jobs_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -127,26 +133,21 @@
                 android:layout_marginTop="10dp"
                 android:text="Time"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
-
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                android:textSize="13sp" />
 
 
             <TextView
+                android:id="@+id/number_of_dishes_new_jobs_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="10dp"
                 android:text="No. of Dishes"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="13sp" />
 
             <TextView
+                android:id="@+id/cuisines_new_jobs_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -154,20 +155,19 @@
                 android:layout_marginTop="10dp"
                 android:text="Cuisines"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="13sp" />
+            <TextView
+                android:id="@+id/party_address_new_jobs_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:text="Party address"
+                android:textColor="@color/black"
+                android:textSize="13sp" />
 
-
-        </RelativeLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="20dp"
-            android:text="Party address"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
+        </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="match_parent"
