@@ -1,5 +1,6 @@
 package com.moutamid.cheffdarbariadmin.ui;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -16,15 +17,23 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+import com.moutamid.cheffdarbariadmin.MainActivity;
 import com.moutamid.cheffdarbariadmin.R;
 import com.moutamid.cheffdarbariadmin.activities.NavigationDrawerActivity;
 import com.moutamid.cheffdarbariadmin.databinding.FragmentAddJobBinding;
 import com.moutamid.cheffdarbariadmin.models.JobsAdminModel;
+import com.moutamid.cheffdarbariadmin.notifications.FcmNotificationsSender;
 import com.moutamid.cheffdarbariadmin.utils.Constants;
 
 import java.util.Calendar;
@@ -36,17 +45,20 @@ public class AddJobFragment extends Fragment {
 
     public JobsAdminModel jobsAdminModel = new JobsAdminModel();
     ProgressDialog progressDialog;
+    LinearLayoutManager linearLayoutManager;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         b = FragmentAddJobBinding.inflate(inflater, container, false);
         View root = b.getRoot();
-
+        if (!isAdded())  return b.getRoot();
+        linearLayoutManager = new LinearLayoutManager(requireContext());
         progressDialog = new ProgressDialog(requireContext());
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading...");
 
         jobsAdminModel.time = Constants.NULL;
         jobsAdminModel.date = Constants.NULL;
+        jobsAdminModel.job_open = true;
 
         b.occasionTypeTv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -251,7 +263,7 @@ public class AddJobFragment extends Fragment {
                                 b.timeEt.setText(jobsAdminModel.time);
                             }
 
-                        }, hour, mMinute, true);
+                        }, hour, mMinute, false);
                 timePickerDialog.show();
             }
         });
@@ -261,32 +273,80 @@ public class AddJobFragment extends Fragment {
 
                 if (affiliateCheckEntries())
                     return;
+                jobsAdminModel.job_open = true;
+
                 progressDialog.show();
+
                 Constants.databaseReference()
-                        .child(Constants.ADMIN_BOOKINGS)
-                        .push()
-                        .setValue(jobsAdminModel)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        .child(Constants.ADMIN_LAST_JOB_ID)
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                progressDialog.dismiss();
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(requireContext(), "Success", Toast.LENGTH_SHORT).show();
-//                                    requireActivity().recreate();
-                                    Intent intent = new Intent(requireContext(), NavigationDrawerActivity.class);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                    requireActivity().finish();
-                                    startActivity(intent);
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists()) {
+                                    last_id = snapshot.getValue(Long.class);
+                                    last_id++;
                                 } else {
-                                    Toast.makeText(requireContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                    last_id = 1986;
                                 }
+                                jobsAdminModel.id = last_id + "";
+                                Constants.databaseReference()
+                                        .child(Constants.ADMIN_BOOKINGS)
+                                        .push()
+                                        .setValue(jobsAdminModel)
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    Constants.databaseReference()
+                                                            .child(Constants.ADMIN_LAST_JOB_ID)
+                                                            .setValue(last_id)
+                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void unused) {
+                                                                    uploadNotification();
+                                                                    progressDialog.dismiss();
+                                                                    Toast.makeText(requireContext(), "Success", Toast.LENGTH_SHORT).show();
+                                                                    Intent intent = new Intent(requireContext(), NavigationDrawerActivity.class);
+                                                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                                    requireActivity().finish();
+                                                                    startActivity(intent);
+                                                                }
+                                                            }).addOnFailureListener(new OnFailureListener() {
+                                                                @Override
+                                                                public void onFailure(@NonNull Exception e) {
+                                                                    Toast.makeText(requireContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                                }
+                                                            });
+                                                } else {
+                                                    progressDialog.dismiss();
+                                                    Toast.makeText(requireContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
                             }
                         });
-
             }
         });
 
         return root;
+    }
+
+    long last_id;
+
+    private void uploadNotification() {
+        new FcmNotificationsSender(
+                "/topics/" + Constants.CHEF_NOTIFICATIONS,
+                "New job",
+                "Admin has added a new job in " + jobsAdminModel.city,
+                requireActivity().getApplicationContext(),
+                requireActivity())
+                .SendNotifications();
     }
 
     public boolean affiliateCheckEntries() {
@@ -378,7 +438,7 @@ public class AddJobFragment extends Fragment {
         }
         if (b.mexicanCheckBoxAddJob.isChecked()) {
             jobsAdminModel.cuisines_list.add(b.
-                    italianCheckBoxAddJob.getText().toString());
+                    mexicanCheckBoxAddJob.getText().toString());
         }
         if (b.continentalCheckBoxAddJob.isChecked()) {
             jobsAdminModel.cuisines_list.add(b.
@@ -396,8 +456,8 @@ public class AddJobFragment extends Fragment {
             jobsAdminModel.cuisines_list.add(b.
                     homeFoodCheckBoxAddJob.getText().toString());
         }
-        String text = System.currentTimeMillis() + "";
-        jobsAdminModel.id = text.substring(text.length() - 6);
+        /*String text = System.currentTimeMillis() + "";
+        jobsAdminModel.id = text.substring(text.length() - 6);/*/
 
         return false;
     }

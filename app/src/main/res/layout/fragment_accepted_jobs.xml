@@ -29,7 +29,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
             android:gravity="center"
-            android:text="Accepted Bookings"
+            android:text="Accepted Jobs"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />

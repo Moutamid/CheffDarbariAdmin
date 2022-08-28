@@ -4,33 +4,30 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 import com.moutamid.cheffdarbariadmin.R;
 import com.moutamid.cheffdarbariadmin.databinding.FragmentNewPartyBookingsBinding;
 import com.moutamid.cheffdarbariadmin.models.AffiliateAddBookingModel;
-import com.moutamid.cheffdarbariadmin.utils.Constants;
 
 import java.util.ArrayList;
 
 public class NewPartyBookingsFragment extends Fragment {
 
     private FragmentNewPartyBookingsBinding b;
+    LinearLayoutManager linearLayoutManager;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         b = FragmentNewPartyBookingsBinding.inflate(inflater, container, false);
         View root = b.getRoot();
-
-        Constants.databaseReference()
+        if (!isAdded())  return b.getRoot();
+        linearLayoutManager = new LinearLayoutManager(requireContext());
+        /*Constants.databaseReference()
                 .child(Constants.auth().getUid())
                 .child(Constants.NEW_PARTY_BOOKINGS)
                 .addValueEventListener(new ValueEventListener() {
@@ -55,7 +52,7 @@ public class NewPartyBookingsFragment extends Fragment {
                     public void onCancelled(@NonNull DatabaseError error) {
                         Toast.makeText(requireContext(), error.toException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
-                });
+                });*/
 
 
         return root;
@@ -74,8 +71,7 @@ public class NewPartyBookingsFragment extends Fragment {
 //    int numberOfColumns = 3;
         //int mNoOfColumns = calculateNoOfColumns(getApplicationContext(), 50);
         //  recyclerView.setLayoutManager(new GridLayoutManager(this, mNoOfColumns));
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
-        //linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setReverseLayout(true);
         conversationRecyclerView.setLayoutManager(linearLayoutManager);
         conversationRecyclerView.setHasFixedSize(true);
         conversationRecyclerView.setNestedScrollingEnabled(false);

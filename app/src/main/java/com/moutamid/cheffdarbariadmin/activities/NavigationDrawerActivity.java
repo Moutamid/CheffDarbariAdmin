@@ -2,7 +2,6 @@ package com.moutamid.cheffdarbariadmin.activities;
 
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -12,9 +11,10 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.moutamid.cheffdarbariadmin.R;
 import com.moutamid.cheffdarbariadmin.databinding.ActivityNavigationDrawerBinding;
+import com.moutamid.cheffdarbariadmin.utils.Constants;
 
 public class NavigationDrawerActivity extends AppCompatActivity {
 
@@ -28,13 +28,9 @@ public class NavigationDrawerActivity extends AppCompatActivity {
         binding = ActivityNavigationDrawerBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarNavigationDrawer.toolbar);
-        /*binding.appBarNavigationDrawer.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
+
+        FirebaseMessaging.getInstance().subscribeToTopic(Constants.ADMIN_NOTIFICATIONS);
+
         DrawerLayout drawer = binding.drawerLayout;
         binding.appBarNavigationDrawer.menuBtn.setOnClickListener(view -> {
             if (drawer.isOpen())

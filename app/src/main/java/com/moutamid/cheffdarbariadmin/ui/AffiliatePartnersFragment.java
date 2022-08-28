@@ -4,14 +4,21 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.moutamid.cheffdarbariadmin.R;
 import com.moutamid.cheffdarbariadmin.databinding.FragmentAffiliatePartnersBinding;
+import com.moutamid.cheffdarbariadmin.models.AffiliateUserModel;
+import com.moutamid.cheffdarbariadmin.utils.Constants;
 
 import java.util.ArrayList;
 
@@ -23,10 +30,37 @@ public class AffiliatePartnersFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         b = FragmentAffiliatePartnersBinding.inflate(inflater, container, false);
         View root = b.getRoot();
-        initRecyclerView();
+        if (!isAdded())  return b.getRoot();
+        Constants.databaseReference()
+                .child(Constants.USERS)
+                .child(Constants.AFFILIATE)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            tasksArrayList.clear();
+
+                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                tasksArrayList.add(dataSnapshot.getValue(AffiliateUserModel.class));
+                            }
+
+                            tasksArrayList.clear();
+
+                            initRecyclerView();
+
+                        } else {
+                            Toast.makeText(requireContext(), "No data", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(requireContext(), error.toException().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
         return root;
     }
-    private ArrayList<String> tasksArrayList = new ArrayList<>();
+    private ArrayList<AffiliateUserModel> tasksArrayList = new ArrayList<>();
 
     private RecyclerView conversationRecyclerView;
     private RecyclerViewAdapterMessages adapter;
@@ -63,32 +97,32 @@ public class AffiliatePartnersFragment extends Fragment {
         @NonNull
         @Override
         public ViewHolderRightMessage onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.affiliate_partners_item, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.chef_item, parent, false);
+//            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.affiliate_partners_item, parent, false);
             return new ViewHolderRightMessage(view);
         }
 
 
         @Override
         public void onBindViewHolder(@NonNull final ViewHolderRightMessage holder, int position) {
+            AffiliateUserModel model = tasksArrayList.get(position);
 
-//            holder.title.setText("");
-
+            holder.title.setText(model.shopName);
         }
 
         @Override
         public int getItemCount() {
-//            if (tasksArrayList == null)
-            return 10;
-//            return tasksArrayList.size();
+            if (tasksArrayList == null)
+            return 0;
+            return tasksArrayList.size();
         }
 
         public class ViewHolderRightMessage extends RecyclerView.ViewHolder {
-
-//            TextView title;
+            TextView title;
 
             public ViewHolderRightMessage(@NonNull View v) {
                 super(v);
-//                title = v.findViewById(R.id.titleTextview);
+                title = v.findViewById(R.id.chef_name);
 
             }
         }

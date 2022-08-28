@@ -1,10 +1,11 @@
 package com.moutamid.cheffdarbariadmin.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.moutamid.cheffdarbariadmin.R;
 import com.moutamid.cheffdarbariadmin.databinding.FragmentJobsPostedBinding;
 import com.moutamid.cheffdarbariadmin.models.JobsAdminModel;
+import com.moutamid.cheffdarbariadmin.notifications.FcmNotificationsSender;
 import com.moutamid.cheffdarbariadmin.utils.Constants;
 
 import java.util.ArrayList;
@@ -31,6 +33,8 @@ public class JobsPostedFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         b = FragmentJobsPostedBinding.inflate(inflater, container, false);
         View root = b.getRoot();
+        if (!isAdded())
+            return b.getRoot();
 
         Constants.databaseReference()
                 .child(Constants.ADMIN_BOOKINGS)
@@ -55,9 +59,10 @@ public class JobsPostedFragment extends Fragment {
 
                     }
                 });
-
+        linearLayoutManager = new LinearLayoutManager(requireContext());
         return root;
     }
+    LinearLayoutManager linearLayoutManager;
 
     private ArrayList<JobsAdminModel> tasksArrayList = new ArrayList<>();
 
@@ -73,7 +78,8 @@ public class JobsPostedFragment extends Fragment {
         //    int numberOfColumns = 3;
         //int mNoOfColumns = calculateNoOfColumns(getApplicationContext(), 50);
         //  recyclerView.setLayoutManager(new GridLayoutManager(this, mNoOfColumns));
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
+//        LinearLayoutManager linearLayoutManager = new
+//                LinearLayoutManager(requireActivity());
         linearLayoutManager.setReverseLayout(true);
         conversationRecyclerView.setLayoutManager(linearLayoutManager);
         conversationRecyclerView.setHasFixedSize(true);
@@ -105,19 +111,29 @@ public class JobsPostedFragment extends Fragment {
         public void onBindViewHolder(@NonNull final ViewHolderRightMessage holder, int position) {
             JobsAdminModel model = tasksArrayList.get(position);
 
-            holder.name.setText("Name: " + model.name);
+            if (model.job_open) {
+                holder.jobStatus.setText("Open Job");
+                holder.jobStatus.setBackgroundColor(getResources().getColor(R.color.lightgreen));
+                holder.sendNotificationBtn.setVisibility(View.VISIBLE);
+            } else {
+                holder.jobStatus.setText("Closed");
+                holder.jobStatus.setBackgroundColor(getResources().getColor(R.color.red));
+                holder.sendNotificationBtn.setVisibility(View.GONE);
+            }
 
-            holder.id.setText("ID: " + model.id);
+            holder.name.setText(Html.fromHtml(Constants.BOLD_START + "Customer Name: " + Constants.BOLD_END + model.name));
 
-            holder.staff_required.setText("Staff Required: " + model.staff_required);
-            holder.payment.setText("Payment: " + model.payment + "₹");
-            holder.occasion.setText("Occasion Type: " + model.occasion_type);
-            holder.party_date.setText("Party Address: " + model.party_address);
-            holder.number_of_people.setText("Number of people: " + model.number_of_people);
-            holder.time.setText("Time: " + model.time);
-            holder.number_of_dishes.setText("No of dishes: " + model.no_of_dishes);
-            holder.cuisines.setText("Cuisines: " + model.cuisines_list.toString());
-            holder.party_address.setText("Party Address: " + model.party_address);
+            holder.id.setText(Html.fromHtml(Constants.BOLD_START + "Job Id: " + Constants.BOLD_END + model.id));
+
+            holder.staff_required.setText(Html.fromHtml(Constants.BOLD_START + "Staff Required: " + Constants.BOLD_END + model.staff_required));
+            holder.payment.setText(Html.fromHtml(Constants.BOLD_START + "Payment: " + Constants.BOLD_END +"₹"+ model.payment));
+            holder.occasion.setText(Html.fromHtml(Constants.BOLD_START + "Occasion Type: " + Constants.BOLD_END + model.occasion_type));
+            holder.party_date.setText(Html.fromHtml(Constants.BOLD_START + "Party Date: " + Constants.BOLD_END + model.date));
+            holder.number_of_people.setText(Html.fromHtml(Constants.BOLD_START + "Number of people: " + Constants.BOLD_END + model.number_of_people));
+            holder.time.setText(Html.fromHtml(Constants.BOLD_START + "Time: " + Constants.BOLD_END + model.time));
+            holder.number_of_dishes.setText(Html.fromHtml(Constants.BOLD_START + "No of dishes: " + Constants.BOLD_END + model.no_of_dishes));
+            holder.cuisines.setText(Html.fromHtml(Constants.BOLD_START + "Cuisines: " + Constants.BOLD_END + model.cuisines_list.toString()));
+            holder.party_address.setText(Html.fromHtml(Constants.BOLD_START + "Party Address: " + Constants.BOLD_END + model.party_address));
 
             holder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -126,7 +142,13 @@ public class JobsPostedFragment extends Fragment {
 //                    startActivity(new Intent(requireContext(), JobDetailsActivity.class));
                 }
             });
-
+            holder.sendNotificationBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    uploadNotification(model.city);
+                    Toast.makeText(requireContext(), "Done", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
         @Override
@@ -139,11 +161,14 @@ public class JobsPostedFragment extends Fragment {
         public class ViewHolderRightMessage extends RecyclerView.ViewHolder {
             TextView name, id, staff_required, payment,
                     occasion, party_date, number_of_people, time,
-                    number_of_dishes, cuisines, party_address;
+                    number_of_dishes, cuisines, party_address, jobStatus;
             CardView cardView;
+            Button sendNotificationBtn;
 
             public ViewHolderRightMessage(@NonNull View v) {
                 super(v);
+                sendNotificationBtn = v.findViewById(R.id.sendNotificationBtn);
+                jobStatus = v.findViewById(R.id.job_status_new_jobs_item);
                 name = v.findViewById(R.id.name_new_jobs_item);
                 id = v.findViewById(R.id.id_number_new_jobs_item);
                 staff_required = v.findViewById(R.id.staff_required_new_jobs_item);
@@ -161,4 +186,15 @@ public class JobsPostedFragment extends Fragment {
         }
 
     }
+
+    private void uploadNotification(String cityName) {
+        new FcmNotificationsSender(
+                "/topics/" + Constants.CHEF_NOTIFICATIONS,
+                "New job",
+                "Admin has added a new job in " + cityName,
+                requireActivity().getApplicationContext(),
+                requireActivity())
+                .SendNotifications();
+    }
+
 }

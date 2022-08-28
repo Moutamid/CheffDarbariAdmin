@@ -41,6 +41,13 @@ public class Constants {
     public static final String IS_FOLLOWER_CHECKED = "IS_FOLLOWER_CHECKED";
     public static final String NEW_PARTY_BOOKINGS = "NEW_PARTY_BOOKINGS";
     public static final String ADMIN_BOOKINGS = "ADMIN_BOOKINGS";
+    public static final String BOLD_START = "<b>";
+    public static final String BOLD_END = "</b>";
+    public static final String ACCEPTED_JOBS = "ACCEPTED_JOBS";
+    public static final String COMPLETED_JOBS = "COMPLETED_JOBS";
+    public static final String ADMIN_NOTIFICATIONS = "admin_notifications";
+    public static final String CHEF_NOTIFICATIONS = "chef_notifications";
+    public static final String ADMIN_LAST_JOB_ID = "ADMIN_LAST_JOB_ID";
 
     public static FirebaseAuth auth() {
         return FirebaseAuth.getInstance();

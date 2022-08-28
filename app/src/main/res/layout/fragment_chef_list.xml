@@ -30,7 +30,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
             android:gravity="center"
-            android:text="Affiliate partners"
+            android:text="Chef List"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -49,9 +49,9 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/chefRecyclerView"
                 android:layout_width="match_parent"
-                tools:listitem="@layout/affiliate_partners_item"
+                tools:listitem="@layout/chef_item"
                 android:layout_height="wrap_content" />
-
+<!--                tools:listitem="@layout/affiliate_partners_item"-->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="200dp" />

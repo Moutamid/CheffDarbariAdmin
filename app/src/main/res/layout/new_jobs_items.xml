@@ -22,6 +22,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
+                android:id="@+id/job_status_new_jobs_item"
                 android:background="@color/lightgreen"
                 android:gravity="center"
                 android:padding="10dp"
@@ -172,6 +173,7 @@
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/sendNotificationBtn"
             android:background="@color/default_yellow"
             android:text="Send notification"
             android:textColor="@color/white" />
