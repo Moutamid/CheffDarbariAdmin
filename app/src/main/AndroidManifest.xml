@@ -70,17 +70,6 @@
                 android:value="com.google.firebase.components.ComponentRegistrar" />
         </service>
 
-        <!--        <provider-->
-        <!--            android:name="com.google.firebase.provider.FirebaseInitProvider"-->
-        <!--            android:authorities=".firebaseinitprovider"-->
-        <!--            android:directBootAware="true"-->
-        <!--            android:exported="false"-->
-        <!--            android:initOrder="100" />-->
-
-        <!--        <provider-->
-        <!--            android:authorities="com.moutamid.pushnotifications."-->
-        <!--            android:name="com.google.firebase.provider.FirebaseInitProvider"-->
-
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -100,6 +89,18 @@
         <receiver
             android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
             android:exported="false" />
+
+        <!--        <provider-->
+        <!--            android:name="com.google.firebase.provider.FirebaseInitProvider"-->
+        <!--            android:authorities=".firebaseinitprovider"-->
+        <!--            android:directBootAware="true"-->
+        <!--            android:exported="false"-->
+        <!--            android:initOrder="100" />-->
+
+        <!--        <provider-->
+        <!--            android:authorities="com.moutamid.pushnotifications."-->
+        <!--            android:name="com.google.firebase.provider.FirebaseInitProvider"-->
+
     </application>
 
 </manifest>
