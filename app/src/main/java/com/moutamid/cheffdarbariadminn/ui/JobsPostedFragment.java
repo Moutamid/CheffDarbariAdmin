@@ -1,4 +1,4 @@
-package com.moutamid.cheffdarbariadmin.ui;
+package com.moutamid.cheffdarbariadminn.ui;
 
 import android.os.Bundle;
 import android.text.Html;
@@ -18,11 +18,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
-import com.moutamid.cheffdarbariadmin.R;
-import com.moutamid.cheffdarbariadmin.databinding.FragmentJobsPostedBinding;
-import com.moutamid.cheffdarbariadmin.models.JobsAdminModel;
-import com.moutamid.cheffdarbariadmin.notifications.FcmNotificationsSender;
-import com.moutamid.cheffdarbariadmin.utils.Constants;
+import com.moutamid.cheffdarbariadminn.R;
+import com.moutamid.cheffdarbariadminn.databinding.FragmentJobsPostedBinding;
+import com.moutamid.cheffdarbariadminn.models.JobsAdminModel;
+import com.moutamid.cheffdarbariadminn.notifications.FcmNotificationsSender;
+import com.moutamid.cheffdarbariadminn.utils.Constants;
 
 import java.util.ArrayList;
 

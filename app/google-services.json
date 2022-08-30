@@ -63,6 +63,35 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1078090669796:android:5046f4b319f1f05c6f56f1",
+        "android_client_info": {
+          "package_name": "com.moutamid.cheffdarbariadminn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1078090669796-gpe9ficin3ji4anlk76svb5033mgrp9i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRXgaCCnpMtdu9swAnWzWNyKs9Nnl83Ew"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1078090669796-gpe9ficin3ji4anlk76svb5033mgrp9i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

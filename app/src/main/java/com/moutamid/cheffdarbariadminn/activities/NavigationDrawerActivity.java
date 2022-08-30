@@ -1,4 +1,4 @@
-package com.moutamid.cheffdarbariadmin.activities;
+package com.moutamid.cheffdarbariadminn.activities;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,9 +12,9 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.moutamid.cheffdarbariadmin.R;
-import com.moutamid.cheffdarbariadmin.databinding.ActivityNavigationDrawerBinding;
-import com.moutamid.cheffdarbariadmin.utils.Constants;
+import com.moutamid.cheffdarbariadminn.R;
+import com.moutamid.cheffdarbariadminn.databinding.ActivityNavigationDrawerBinding;
+import com.moutamid.cheffdarbariadminn.utils.Constants;
 
 public class NavigationDrawerActivity extends AppCompatActivity {
 
@@ -41,6 +41,7 @@ public class NavigationDrawerActivity extends AppCompatActivity {
         NavigationView navigationView = binding.navView;
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_add_job,
+
                 R.id.nav_jobs_posted,
                 R.id.nav_new_party_bookings,
                 R.id.nav_accepted_jobs,

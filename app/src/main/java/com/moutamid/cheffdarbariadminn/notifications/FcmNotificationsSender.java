@@ -1,4 +1,4 @@
-package com.moutamid.cheffdarbariadmin.notifications;
+package com.moutamid.cheffdarbariadminn.notifications;
 
 import android.app.Activity;
 import android.content.Context;

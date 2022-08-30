@@ -1,4 +1,4 @@
-package com.moutamid.cheffdarbariadmin;
+package com.moutamid.cheffdarbariadminn;
 
 import androidx.appcompat.app.AppCompatActivity;
 

@@ -1,4 +1,4 @@
-package com.moutamid.cheffdarbariadmin.models;
+package com.moutamid.cheffdarbariadminn.models;
 
 public class AffiliateUserModel {
     public String name, whatsapp,

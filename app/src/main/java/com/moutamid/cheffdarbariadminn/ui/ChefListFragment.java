@@ -1,6 +1,8 @@
-package com.moutamid.cheffdarbariadmin.ui;
+package com.moutamid.cheffdarbariadminn.ui;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,66 +11,80 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
-import com.moutamid.cheffdarbariadmin.R;
-import com.moutamid.cheffdarbariadmin.databinding.FragmentAffiliatePartnersBinding;
-import com.moutamid.cheffdarbariadmin.models.AffiliateUserModel;
-import com.moutamid.cheffdarbariadmin.utils.Constants;
+import com.moutamid.cheffdarbariadminn.R;
+import com.moutamid.cheffdarbariadminn.databinding.FragmentChefListBinding;
+import com.moutamid.cheffdarbariadminn.models.ChefUserModel;
+import com.moutamid.cheffdarbariadminn.utils.Constants;
 
 import java.util.ArrayList;
 
-public class AffiliatePartnersFragment extends Fragment {
+public class ChefListFragment extends Fragment {
+    private static final String TAG = "ChefListFragment";
+    private FragmentChefListBinding b;
+    private ProgressDialog progressDialog;
 
-    private FragmentAffiliatePartnersBinding b;
-
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        b = FragmentAffiliatePartnersBinding.inflate(inflater, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        b = FragmentChefListBinding.inflate(inflater, container, false);
         View root = b.getRoot();
-        if (!isAdded())  return b.getRoot();
+        Log.d(TAG, "onCreateView: ");
+        if (!isAdded()) return b.getRoot();
+        Log.d(TAG, "onCreateView: added");
+        progressDialog = new ProgressDialog(requireContext());
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
         Constants.databaseReference()
                 .child(Constants.USERS)
-                .child(Constants.AFFILIATE)
+                .child(Constants.CHEF)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Log.d(TAG, "onDataChange: ");
                         if (snapshot.exists()) {
+                            Log.d(TAG, "onDataChange: snapshot exist");
                             tasksArrayList.clear();
 
                             for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                tasksArrayList.add(dataSnapshot.getValue(AffiliateUserModel.class));
+                                ChefUserModel model = dataSnapshot.getValue(ChefUserModel.class);
+                                Log.d(TAG, "onDataChange: model: " + model);
+                                tasksArrayList.add(model);
                             }
 
-                            tasksArrayList.clear();
-
+                            progressDialog.dismiss();
                             initRecyclerView();
 
                         } else {
+                            progressDialog.dismiss();
                             Toast.makeText(requireContext(), "No data", Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
+                        progressDialog.dismiss();
                         Toast.makeText(requireContext(), error.toException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+
         return root;
     }
-    private ArrayList<AffiliateUserModel> tasksArrayList = new ArrayList<>();
+
+    private ArrayList<ChefUserModel> tasksArrayList = new ArrayList<>();
 
     private RecyclerView conversationRecyclerView;
     private RecyclerViewAdapterMessages adapter;
 
     private void initRecyclerView() {
 
-        conversationRecyclerView = b.affiliatePartnersRecyclerView;
-        //conversationRecyclerView.addItemDecoration(new DividerItemDecoration(conversationRecyclerView.getContext(), DividerItemDecoration.VERTICAL));
+        conversationRecyclerView = b.chefRecyclerView;
+        conversationRecyclerView.addItemDecoration(new DividerItemDecoration(conversationRecyclerView.getContext(), DividerItemDecoration.VERTICAL));
         adapter = new RecyclerViewAdapterMessages();
         //        LinearLayoutManager layoutManagerUserFriends = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
 //    int numberOfColumns = 3;
@@ -98,26 +114,26 @@ public class AffiliatePartnersFragment extends Fragment {
         @Override
         public ViewHolderRightMessage onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.chef_item, parent, false);
-//            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.affiliate_partners_item, parent, false);
             return new ViewHolderRightMessage(view);
         }
 
-
         @Override
         public void onBindViewHolder(@NonNull final ViewHolderRightMessage holder, int position) {
-            AffiliateUserModel model = tasksArrayList.get(position);
+            ChefUserModel model = tasksArrayList.get(position);
+            Log.d(TAG, "onBindViewHolder: " + model.email);
+            holder.title.setText(model.name);
 
-            holder.title.setText(model.shopName);
         }
 
         @Override
         public int getItemCount() {
             if (tasksArrayList == null)
-            return 10;
+                return 0;
             return tasksArrayList.size();
         }
 
         public class ViewHolderRightMessage extends RecyclerView.ViewHolder {
+
             TextView title;
 
             public ViewHolderRightMessage(@NonNull View v) {

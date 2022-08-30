@@ -1,4 +1,4 @@
-package com.moutamid.cheffdarbariadmin;
+package com.moutamid.cheffdarbariadminn;
 
 import org.junit.Test;
 

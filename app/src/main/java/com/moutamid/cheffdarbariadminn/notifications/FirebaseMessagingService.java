@@ -1,4 +1,4 @@
-package com.moutamid.cheffdarbariadmin.notifications;
+package com.moutamid.cheffdarbariadminn.notifications;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -15,9 +15,8 @@ import android.util.Log;
 import androidx.core.app.NotificationCompat;
 
 import com.google.firebase.messaging.RemoteMessage;
-import com.moutamid.cheffdarbariadmin.MainActivity;
-import com.moutamid.cheffdarbariadmin.R;
-import com.moutamid.cheffdarbariadmin.activities.NavigationDrawerActivity;
+import com.moutamid.cheffdarbariadminn.R;
+import com.moutamid.cheffdarbariadminn.activities.NavigationDrawerActivity;
 
 public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
     public static final String MY_PREFS_NAME = "MyPrefsFile";

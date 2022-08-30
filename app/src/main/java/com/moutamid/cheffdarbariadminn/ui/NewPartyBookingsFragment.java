@@ -1,4 +1,4 @@
-package com.moutamid.cheffdarbariadmin.ui;
+package com.moutamid.cheffdarbariadminn.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,11 +10,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.moutamid.cheffdarbariadmin.R;
-import com.moutamid.cheffdarbariadmin.databinding.FragmentNewPartyBookingsBinding;
-import com.moutamid.cheffdarbariadmin.models.AffiliateAddBookingModel;
+import com.moutamid.cheffdarbariadminn.R;
+import com.moutamid.cheffdarbariadminn.databinding.FragmentNewPartyBookingsBinding;
+import com.moutamid.cheffdarbariadminn.models.AffiliateAddBookingModel;
 
 import java.util.ArrayList;
+
 
 public class NewPartyBookingsFragment extends Fragment {
 
