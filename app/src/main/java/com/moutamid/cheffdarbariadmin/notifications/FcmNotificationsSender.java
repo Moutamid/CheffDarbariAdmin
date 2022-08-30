@@ -18,7 +18,7 @@ import org.json.JSONObject;
 
 public class FcmNotificationsSender {
     String body;
-    private final String fcmServerKey = "AAAAzzvbhX8:APA91bGavDjgYZn9tdcqZCSxPEZtmvOxUSRbNxSrpakLAvMAZ8uZ5pmaqBxo4AVmpued6aKR-Nwkj8pngfV_yhNvdAytaTh_8wuGcZ-ueTYe90LFF_zgwzVXtEyYLQv42JJae9SWdHC9";
+    private final String fcmServerKey = "AAAA-wM2HuQ:APA91bFeoBFYgt_fB-lEAlG78eCoKK2lDp8SLh2hQZzHG016SQDS7DK5qD6ityiBOjmLgSvzr4gHAA0pnnprxJTFRYfc1iKyyBzsV_W6-7fo_soZ2hr_vPC7zOzg4arym5Mf-dhxRFd6";
     Activity mActivity;
     Context mContext;
     private final String postUrl = "https://fcm.googleapis.com/fcm/send";

@@ -75,7 +75,7 @@ public class AffiliatePartnersFragment extends Fragment {
         //int mNoOfColumns = calculateNoOfColumns(getApplicationContext(), 50);
         //  recyclerView.setLayoutManager(new GridLayoutManager(this, mNoOfColumns));
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
-        //linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setReverseLayout(true);
         conversationRecyclerView.setLayoutManager(linearLayoutManager);
         conversationRecyclerView.setHasFixedSize(true);
         conversationRecyclerView.setNestedScrollingEnabled(false);
@@ -113,7 +113,7 @@ public class AffiliatePartnersFragment extends Fragment {
         @Override
         public int getItemCount() {
             if (tasksArrayList == null)
-            return 0;
+            return 10;
             return tasksArrayList.size();
         }
 

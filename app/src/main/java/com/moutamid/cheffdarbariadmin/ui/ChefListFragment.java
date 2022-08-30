@@ -1,5 +1,6 @@
 package com.moutamid.cheffdarbariadmin.ui;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,13 +27,16 @@ import java.util.ArrayList;
 public class ChefListFragment extends Fragment {
 
     private FragmentChefListBinding b;
+    private ProgressDialog progressDialog;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         b = FragmentChefListBinding.inflate(inflater, container, false);
         View root = b.getRoot();
         if (!isAdded()) return b.getRoot();
-
+        progressDialog = new ProgressDialog(requireContext());
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
         Constants.databaseReference()
                 .child(Constants.USERS)
                 .child(Constants.CHEF)
@@ -43,20 +47,24 @@ public class ChefListFragment extends Fragment {
                             tasksArrayList.clear();
 
                             for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                tasksArrayList.add(dataSnapshot.getValue(ChefUserModel.class));
+                                ChefUserModel model = dataSnapshot.getValue(ChefUserModel.class);
+                                tasksArrayList.add(model);
+                                Toast.makeText(requireContext(), "" + model.name, Toast.LENGTH_SHORT).show();
                             }
 
                             tasksArrayList.clear();
-
+                            progressDialog.dismiss();
                             initRecyclerView();
 
                         } else {
+                            progressDialog.dismiss();
                             Toast.makeText(requireContext(), "No data", Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
+                        progressDialog.dismiss();
                         Toast.makeText(requireContext(), error.toException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -79,7 +87,7 @@ public class ChefListFragment extends Fragment {
         //int mNoOfColumns = calculateNoOfColumns(getApplicationContext(), 50);
         //  recyclerView.setLayoutManager(new GridLayoutManager(this, mNoOfColumns));
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
-        //linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setReverseLayout(true);
         conversationRecyclerView.setLayoutManager(linearLayoutManager);
         conversationRecyclerView.setHasFixedSize(true);
         conversationRecyclerView.setNestedScrollingEnabled(false);

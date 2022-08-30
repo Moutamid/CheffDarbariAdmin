@@ -36,27 +36,12 @@
             android:textStyle="bold" />
     </RelativeLayout>
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chefRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/topi">
+        android:layout_below="@id/topi"
+        tools:listitem="@layout/chef_item" />
+    <!--                tools:listitem="@layout/affiliate_partners_item"-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/chefRecyclerView"
-                android:layout_width="match_parent"
-                tools:listitem="@layout/chef_item"
-                android:layout_height="wrap_content" />
-<!--                tools:listitem="@layout/affiliate_partners_item"-->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="200dp" />
-
-        </LinearLayout>
-
-    </androidx.core.widget.NestedScrollView>
 </RelativeLayout>

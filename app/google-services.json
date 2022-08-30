@@ -1,10 +1,40 @@
 {
   "project_info": {
     "project_number": "1078090669796",
+    "firebase_url": "https://chefdarbari-default-rtdb.firebaseio.com",
     "project_id": "chefdarbari",
     "storage_bucket": "chefdarbari.appspot.com"
   },
   "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1078090669796:android:69128d4164a2e3016f56f1",
+        "android_client_info": {
+          "package_name": "com.moutamid.chefdarbari"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1078090669796-gpe9ficin3ji4anlk76svb5033mgrp9i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRXgaCCnpMtdu9swAnWzWNyKs9Nnl83Ew"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1078090669796-gpe9ficin3ji4anlk76svb5033mgrp9i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
     {
       "client_info": {
         "mobilesdk_app_id": "1:1078090669796:android:72a238c4393fe0856f56f1",
