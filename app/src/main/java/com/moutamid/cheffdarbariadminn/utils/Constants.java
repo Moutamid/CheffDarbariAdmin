@@ -14,6 +14,7 @@ public class Constants {
     public static final String GENDER_MALE = "male";
     public static final String GENDER_FEMALE = "female";
     public static final String USERS = "users";
+    public static final String AFFILIATE_LAST_BOOKING_ID = "AFFILIATE_LAST_BOOKING_ID";
     public static final String FILTER_USER = "User";
     public static final String FILTER_VIDEOS = "Videos";
     public static final String CURRENT_USER_MODEL = "currentusermodel";

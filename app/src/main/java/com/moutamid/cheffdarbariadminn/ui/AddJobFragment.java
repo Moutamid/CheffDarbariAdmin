@@ -34,7 +34,10 @@ import com.moutamid.cheffdarbariadminn.models.JobsAdminModel;
 import com.moutamid.cheffdarbariadminn.notifications.FcmNotificationsSender;
 import com.moutamid.cheffdarbariadminn.utils.Constants;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.TimeZone;
 
 public class AddJobFragment extends Fragment {
@@ -266,7 +269,18 @@ public class AddJobFragment extends Fragment {
                                 else if (datetime.get(Calendar.AM_PM) == Calendar.PM)
                                     am_pm = " PM";
 
-                                jobsAdminModel.time = current_hour + ":" + current_minute + am_pm;
+                                String time = current_hour + ":" + current_minute;
+
+                                try {
+                                    SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
+                                    Date dateObj;
+                                    dateObj = sdf.parse(time);
+                                    time = new SimpleDateFormat("K:mm").format(dateObj);
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+
+                                jobsAdminModel.time = time + am_pm;
                                 b.timeEt.setText(jobsAdminModel.time);
                             }
 
@@ -321,6 +335,7 @@ public class AddJobFragment extends Fragment {
                                                             }).addOnFailureListener(new OnFailureListener() {
                                                                 @Override
                                                                 public void onFailure(@NonNull Exception e) {
+                                                                    progressDialog.dismiss();
                                                                     Toast.makeText(requireContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                                                                 }
                                                             });

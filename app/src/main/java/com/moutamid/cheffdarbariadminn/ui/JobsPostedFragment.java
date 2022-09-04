@@ -25,6 +25,8 @@ import com.moutamid.cheffdarbariadminn.notifications.FcmNotificationsSender;
 import com.moutamid.cheffdarbariadminn.utils.Constants;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class JobsPostedFragment extends Fragment {
 
@@ -49,6 +51,14 @@ public class JobsPostedFragment extends Fragment {
                                 tasksArrayList.add(dataSnapshot.getValue(JobsAdminModel.class));
 
                             }
+
+                            Collections.sort(tasksArrayList, new Comparator<JobsAdminModel>() {
+                                @Override
+                                public int compare(JobsAdminModel o1, JobsAdminModel o2) {
+                                    return Boolean.compare(o1.job_open, o2.job_open);
+                                }
+                            });
+
                             initRecyclerView();
                         } else
                             Toast.makeText(requireContext(), "No data!", Toast.LENGTH_SHORT).show();
