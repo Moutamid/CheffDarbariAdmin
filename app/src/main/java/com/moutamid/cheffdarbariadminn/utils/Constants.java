@@ -47,6 +47,7 @@ public class Constants {
     public static final String ACCEPTED_JOBS = "ACCEPTED_JOBS";
     public static final String COMPLETED_JOBS = "COMPLETED_JOBS";
     public static final String ADMIN_NOTIFICATIONS = "admin_notifications";
+    public static final String AFFILIATE_NOTIFICATIONS = "affiliate_notifications";
     public static final String CHEF_NOTIFICATIONS = "chef_notifications";
     public static final String ADMIN_LAST_JOB_ID = "ADMIN_LAST_JOB_ID";
 

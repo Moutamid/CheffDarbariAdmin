@@ -1,5 +1,6 @@
 package com.moutamid.cheffdarbariadminn.ui;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -13,12 +14,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.moutamid.cheffdarbariadminn.R;
 import com.moutamid.cheffdarbariadminn.databinding.FragmentNewPartyBookingsBinding;
 import com.moutamid.cheffdarbariadminn.models.AffiliateAddBookingModel;
+import com.moutamid.cheffdarbariadminn.notifications.FcmNotificationsSender;
 import com.moutamid.cheffdarbariadminn.utils.Constants;
 
 import java.util.ArrayList;
@@ -33,7 +36,7 @@ public class NewPartyBookingsFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         b = FragmentNewPartyBookingsBinding.inflate(inflater, container, false);
         View root = b.getRoot();
-        if (!isAdded())  return b.getRoot();
+        if (!isAdded()) return b.getRoot();
         linearLayoutManager = new LinearLayoutManager(requireContext());
         Constants.databaseReference()
                 .child(Constants.NEW_PARTY_BOOKINGS)
@@ -45,6 +48,7 @@ public class NewPartyBookingsFragment extends Fragment {
 
                             for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                                 AffiliateAddBookingModel model = dataSnapshot.getValue(AffiliateAddBookingModel.class);
+                                model.push_key = dataSnapshot.getKey();
                                 tasksArrayList.add(model);
                             }
 
@@ -62,6 +66,7 @@ public class NewPartyBookingsFragment extends Fragment {
 
         return root;
     }
+
     private ArrayList<AffiliateAddBookingModel> tasksArrayList = new ArrayList<AffiliateAddBookingModel>();
 
     private RecyclerView conversationRecyclerView;
@@ -70,12 +75,7 @@ public class NewPartyBookingsFragment extends Fragment {
     private void initRecyclerView() {
 
         conversationRecyclerView = b.myBookingsRecyclerview;
-        //conversationRecyclerView.addItemDecoration(new DividerItemDecoration(conversationRecyclerView.getContext(), DividerItemDecoration.VERTICAL));
         adapter = new RecyclerViewAdapterMessages();
-        //        LinearLayoutManager layoutManagerUserFriends = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
-//    int numberOfColumns = 3;
-        //int mNoOfColumns = calculateNoOfColumns(getApplicationContext(), 50);
-        //  recyclerView.setLayoutManager(new GridLayoutManager(this, mNoOfColumns));
         linearLayoutManager.setReverseLayout(true);
         conversationRecyclerView.setLayoutManager(linearLayoutManager);
         conversationRecyclerView.setHasFixedSize(true);
@@ -83,21 +83,7 @@ public class NewPartyBookingsFragment extends Fragment {
 
         conversationRecyclerView.setAdapter(adapter);
 
-//    if (adapter.getItemCount() != 0) {
-
-//        noChatsLayout.setVisibility(View.GONE);
-//        chatsRecyclerView.setVisibility(View.VISIBLE);
-
-//    }
-
     }
-
-/*public static int calculateNoOfColumns(Context context, float columnWidthDp) { // For example columnWidthdp=180
-    DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-    float screenWidthDp = displayMetrics.widthPixels / displayMetrics.density;
-    int noOfColumns = (int) (screenWidthDp / columnWidthDp + 0.5); // +0.5 for correct rounding to int.
-    return noOfColumns;
-}*/
 
     private class RecyclerViewAdapterMessages extends RecyclerView.Adapter
             <RecyclerViewAdapterMessages.ViewHolderRightMessage> {
@@ -114,9 +100,11 @@ public class NewPartyBookingsFragment extends Fragment {
 
             AffiliateAddBookingModel model = tasksArrayList.get(position);
             if (model.booking_confirmed) {
+                holder.button.setVisibility(View.GONE);
                 holder.bookingConfirmed.setText("Confirmed");
                 holder.bookingConfirmed.setBackgroundColor(getResources().getColor(R.color.lightgreen));
             } else {
+                holder.button.setVisibility(View.VISIBLE);
                 holder.bookingConfirmed.setText("Not Confirmed");
                 holder.bookingConfirmed.setBackgroundColor(getResources().getColor(R.color.orange));
             }
@@ -129,31 +117,56 @@ public class NewPartyBookingsFragment extends Fragment {
             holder.no_of_dishes.setText(Html.fromHtml(Constants.BOLD_START + "No of dishes: " + Constants.BOLD_END + model.number_of_dishes));
             holder.cuisines.setText(Html.fromHtml(Constants.BOLD_START + "Cuisines: " + Constants.BOLD_END + model.cuisinesList.toString()));
             holder.party_adress.setText(Html.fromHtml(Constants.BOLD_START + "Party Address: " + Constants.BOLD_END + model.party_venue_address));
+            holder.number.setText(Html.fromHtml(Constants.BOLD_START + "Number: " + Constants.BOLD_END + model.number));
+
+            holder.button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new AlertDialog.Builder(requireContext())
+                            .setTitle("Are you sure?")
+                            .setMessage("Do you really want to confirm this booking?")
+                            .setPositiveButton("Yes", (dialog, which) -> {
+
+                                holder.bookingConfirmed.setText("Confirmed");
+
+                                Constants.databaseReference()
+                                        .child(Constants.NEW_PARTY_BOOKINGS)
+                                        .child(model.push_key)
+                                        .child("booking_confirmed")
+                                        .setValue(true);
+
+                                tasksArrayList.get(holder.getAdapterPosition()).booking_confirmed = true;
+                                uploadNotification(model);
+
+                            })
+                            .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                            .show();
+                }
+            });
 
         }
 
         @Override
         public int getItemCount() {
             if (tasksArrayList == null)
-            return 0;
+                return 0;
             return tasksArrayList.size();
         }
 
         public class ViewHolderRightMessage extends RecyclerView.ViewHolder {
 
-//            TextView title;
-
             TextView name, bookingConfirmed, id, payment, occasion, party_date,
-                    number_of_people, time, no_of_dishes, cuisines, party_adress;
-
+                    number_of_people, time, no_of_dishes, cuisines, party_adress,
+                    number;
+            MaterialButton button;
 
             public ViewHolderRightMessage(@NonNull View v) {
                 super(v);
-//                title = v.findViewById(R.id.titleTextview);
-                 bookingConfirmed= v.findViewById(R.id.booking_confirmed_my_bookings_item);
+                bookingConfirmed = v.findViewById(R.id.booking_confirmed_my_bookings_item);
+                button = v.findViewById(R.id.confirmBtn);
+                number = v.findViewById(R.id.number_my_bookings_item);
                 name = v.findViewById(R.id.name_my_bookings_item);
                 id = v.findViewById(R.id.id_my_bookings_item);
-//                staffRequired = v.findViewById(R.id.staff_required_my_bookings_item);
                 payment = v.findViewById(R.id.payment_my_bookings_item);
                 occasion = v.findViewById(R.id.occasion_my_bookings_item);
                 party_date = v.findViewById(R.id.party_date_my_bookings_item);
@@ -166,6 +179,16 @@ public class NewPartyBookingsFragment extends Fragment {
             }
         }
 
+    }
+
+    private void uploadNotification(AffiliateAddBookingModel model) {
+        new FcmNotificationsSender(
+                "/topics/" + Constants.AFFILIATE_NOTIFICATIONS,
+                "Booking Accepted",
+                "Admin has accepted your booking from " + model.party_venue_address,
+                requireActivity().getApplicationContext(),
+                requireActivity())
+                .SendNotifications();
     }
 
 }
