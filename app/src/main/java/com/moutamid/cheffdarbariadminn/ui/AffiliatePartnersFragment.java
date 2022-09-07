@@ -1,5 +1,6 @@
 package com.moutamid.cheffdarbariadminn.ui;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,12 +26,18 @@ import java.util.ArrayList;
 public class AffiliatePartnersFragment extends Fragment {
 
     private FragmentAffiliatePartnersBinding b;
+    private ProgressDialog progressDialog;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         b = FragmentAffiliatePartnersBinding.inflate(inflater, container, false);
         View root = b.getRoot();
         if (!isAdded())  return b.getRoot();
+
+        progressDialog = new ProgressDialog(requireContext());
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
+
         Constants.databaseReference()
                 .child(Constants.USERS)
                 .child(Constants.AFFILIATE)
@@ -44,15 +51,18 @@ public class AffiliatePartnersFragment extends Fragment {
                                 tasksArrayList.add(dataSnapshot.getValue(AffiliateUserModel.class));
                             }
 
+                            progressDialog.dismiss();
                             initRecyclerView();
 
                         } else {
+                            progressDialog.dismiss();
                             Toast.makeText(requireContext(), "No data", Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
+                        progressDialog.dismiss();
                         Toast.makeText(requireContext(), error.toException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });

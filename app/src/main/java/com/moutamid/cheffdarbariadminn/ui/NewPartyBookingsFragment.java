@@ -1,6 +1,7 @@
 package com.moutamid.cheffdarbariadminn.ui;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -31,12 +32,18 @@ public class NewPartyBookingsFragment extends Fragment {
 
     private FragmentNewPartyBookingsBinding b;
     LinearLayoutManager linearLayoutManager;
-
+    private ProgressDialog progressDialog;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         b = FragmentNewPartyBookingsBinding.inflate(inflater, container, false);
         View root = b.getRoot();
         if (!isAdded()) return b.getRoot();
+
+        progressDialog = new ProgressDialog(requireContext());
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
+
         linearLayoutManager = new LinearLayoutManager(requireContext());
         Constants.databaseReference()
                 .child(Constants.NEW_PARTY_BOOKINGS)
@@ -51,14 +58,15 @@ public class NewPartyBookingsFragment extends Fragment {
                                 model.push_key = dataSnapshot.getKey();
                                 tasksArrayList.add(model);
                             }
-
+                            progressDialog.dismiss();
                             initRecyclerView();
 
-                        }
+                        }else progressDialog.dismiss();
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
+                        progressDialog.dismiss();
                         Toast.makeText(requireContext(), error.toException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
