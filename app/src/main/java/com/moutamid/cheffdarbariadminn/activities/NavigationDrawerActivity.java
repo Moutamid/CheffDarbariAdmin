@@ -16,6 +16,8 @@ import com.moutamid.cheffdarbariadminn.R;
 import com.moutamid.cheffdarbariadminn.databinding.ActivityNavigationDrawerBinding;
 import com.moutamid.cheffdarbariadminn.utils.Constants;
 
+import java.util.ArrayList;
+
 public class NavigationDrawerActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
@@ -28,7 +30,10 @@ public class NavigationDrawerActivity extends AppCompatActivity {
         binding = ActivityNavigationDrawerBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarNavigationDrawer.toolbar);
-
+        /*int i;
+        ArrayList<Integer> list = new ArrayList<>();
+        list.add(1);
+        i = list.get(10);*/
         FirebaseMessaging.getInstance().subscribeToTopic(Constants.ADMIN_NOTIFICATIONS);
 
         DrawerLayout drawer = binding.drawerLayout;

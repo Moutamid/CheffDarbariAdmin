@@ -127,6 +127,12 @@ public class NewPartyBookingsFragment extends Fragment {
             holder.party_adress.setText(Html.fromHtml(Constants.BOLD_START + "Party Address: " + Constants.BOLD_END + model.party_venue_address));
             holder.number.setText(Html.fromHtml(Constants.BOLD_START + "Number: " + Constants.BOLD_END + model.number));
 
+            holder.time_stamp.setText(Html.fromHtml(Constants.BOLD_START + "TimeStamp: " + Constants.BOLD_END + model.time_stamp));
+            holder.shopName.setText(Html.fromHtml(Constants.BOLD_START + "Shop Name: " + Constants.BOLD_END + model.affiliate_shop_name));
+            holder.shopCity.setText(Html.fromHtml(Constants.BOLD_START + "Shop City: " + Constants.BOLD_END + model.affiliate_city));
+            holder.shopAddress.setText(Html.fromHtml(Constants.BOLD_START + "Shop Address: " + Constants.BOLD_END + model.affiliate_shop_address));
+            holder.shopNumber.setText(Html.fromHtml(Constants.BOLD_START + "Number: " + Constants.BOLD_END + model.affiliate_number));
+
             holder.button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -138,6 +144,13 @@ public class NewPartyBookingsFragment extends Fragment {
                                 holder.bookingConfirmed.setText("Confirmed");
 
                                 Constants.databaseReference()
+                                        .child(Constants.NEW_PARTY_BOOKINGS)
+                                        .child(model.push_key)
+                                        .child("booking_confirmed")
+                                        .setValue(true);
+
+                                Constants.databaseReference()
+                                        .child(model.affiliate_uid)
                                         .child(Constants.NEW_PARTY_BOOKINGS)
                                         .child(model.push_key)
                                         .child("booking_confirmed")
@@ -165,11 +178,16 @@ public class NewPartyBookingsFragment extends Fragment {
 
             TextView name, bookingConfirmed, id, payment, occasion, party_date,
                     number_of_people, time, no_of_dishes, cuisines, party_adress,
-                    number;
+                    number, time_stamp, shopName, shopCity, shopAddress, shopNumber;
             MaterialButton button;
 
             public ViewHolderRightMessage(@NonNull View v) {
                 super(v);
+                time_stamp = v.findViewById(R.id.time_stamp);
+                shopName = v.findViewById(R.id.shop_name);
+                shopCity = v.findViewById(R.id.shop_city);
+                shopAddress = v.findViewById(R.id.shop_address);
+                shopNumber = v.findViewById(R.id.number__n);
                 bookingConfirmed = v.findViewById(R.id.booking_confirmed_my_bookings_item);
                 button = v.findViewById(R.id.confirmBtn);
                 number = v.findViewById(R.id.number_my_bookings_item);
