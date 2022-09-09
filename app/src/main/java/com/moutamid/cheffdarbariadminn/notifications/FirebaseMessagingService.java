@@ -50,7 +50,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 //        }
         builder.setSmallIcon(R.drawable.logoo);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 2, new Intent(this, NavigationDrawerActivity.class),
-                PendingIntent.FLAG_UPDATE_CURRENT);//134217728
+                PendingIntent.FLAG_IMMUTABLE);//134217728//FLAG_UPDATE_CURRENT
         builder.setContentTitle(remoteMessage.getNotification().getTitle());
         builder.setContentText(remoteMessage.getNotification().getBody());
         builder.setContentIntent(pendingIntent);

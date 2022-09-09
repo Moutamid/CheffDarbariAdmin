@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,10 +32,12 @@ import java.util.ArrayList;
 
 
 public class NewPartyBookingsFragment extends Fragment {
+    private static final String TAG = "NewPartyBookingsFrag";
 
     private FragmentNewPartyBookingsBinding b;
     LinearLayoutManager linearLayoutManager;
     private ProgressDialog progressDialog;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         b = FragmentNewPartyBookingsBinding.inflate(inflater, container, false);
@@ -50,6 +55,8 @@ public class NewPartyBookingsFragment extends Fragment {
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (!isAdded()) return;
+
                         if (snapshot.exists()) {
                             tasksArrayList.clear();
 
@@ -61,7 +68,7 @@ public class NewPartyBookingsFragment extends Fragment {
                             progressDialog.dismiss();
                             initRecyclerView();
 
-                        }else progressDialog.dismiss();
+                        } else progressDialog.dismiss();
                     }
 
                     @Override
@@ -150,7 +157,9 @@ public class NewPartyBookingsFragment extends Fragment {
                                         .setValue(true);
 
                                 Constants.databaseReference()
-                                        .child(model.affiliate_uid)
+                                        .child(Constants.USERS)
+                                        .child(Constants.AFFILIATE)
+                                        .child(model.affiliate_uid + "")
                                         .child(Constants.NEW_PARTY_BOOKINGS)
                                         .child(model.push_key)
                                         .child("booking_confirmed")
@@ -209,7 +218,8 @@ public class NewPartyBookingsFragment extends Fragment {
 
     private void uploadNotification(AffiliateAddBookingModel model) {
         new FcmNotificationsSender(
-                "/topics/" + Constants.AFFILIATE_NOTIFICATIONS,
+                "/topics/" + model.affiliate_uid,
+//                "/topics/" + Constants.AFFILIATE_NOTIFICATIONS,
                 "Booking Accepted",
                 "Admin has accepted your booking from " + model.party_venue_address,
                 requireActivity().getApplicationContext(),
@@ -217,4 +227,9 @@ public class NewPartyBookingsFragment extends Fragment {
                 .SendNotifications();
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause: ");
+    }
 }

@@ -47,6 +47,7 @@ public class ChefListFragment extends Fragment {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         Log.d(TAG, "onDataChange: ");
+                        if (!isAdded()) return;
                         if (snapshot.exists()) {
                             Log.d(TAG, "onDataChange: snapshot exist");
                             tasksArrayList.clear();
@@ -143,5 +144,11 @@ public class ChefListFragment extends Fragment {
             }
         }
 
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause: ");
     }
 }

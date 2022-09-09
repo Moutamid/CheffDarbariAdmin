@@ -5,6 +5,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -41,6 +42,7 @@ import java.util.Date;
 import java.util.TimeZone;
 
 public class AddJobFragment extends Fragment {
+    private static final String TAG = "AddJobFragment";
 
     private FragmentAddJobBinding b;
 
@@ -488,4 +490,9 @@ public class AddJobFragment extends Fragment {
         Toast.makeText(requireContext(), mcg, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause: ");
+    }
 }

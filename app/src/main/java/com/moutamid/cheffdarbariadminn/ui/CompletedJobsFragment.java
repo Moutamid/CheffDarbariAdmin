@@ -3,6 +3,7 @@ package com.moutamid.cheffdarbariadminn.ui;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import com.moutamid.cheffdarbariadminn.utils.Constants;
 import java.util.ArrayList;
 
 public class CompletedJobsFragment extends Fragment {
+    private static final String TAG = "CompletedJobsFragment";
 
     private FragmentCompletedJobsBinding b;
     private ProgressDialog progressDialog;
@@ -44,6 +46,7 @@ public class CompletedJobsFragment extends Fragment {
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (!isAdded()) return;
                         if (snapshot.exists()) {
                             tasksArrayList.clear();
 
@@ -183,5 +186,11 @@ public class CompletedJobsFragment extends Fragment {
             }
         }
 
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause: ");
     }
 }

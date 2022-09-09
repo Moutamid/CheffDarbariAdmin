@@ -3,6 +3,7 @@ package com.moutamid.cheffdarbariadminn.ui;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ import com.moutamid.cheffdarbariadminn.utils.Constants;
 import java.util.ArrayList;
 
 public class AcceptedJobsFragment extends Fragment {
+    private static final String TAG = "AcceptedJobsFragment";
     LinearLayoutManager linearLayoutManager;
 
     private FragmentAcceptedJobsBinding b;
@@ -47,6 +49,7 @@ public class AcceptedJobsFragment extends Fragment {
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (!isAdded()) return;
                         if (snapshot.exists()) {
                             tasksArrayList.clear();
 
@@ -155,6 +158,8 @@ public class AcceptedJobsFragment extends Fragment {
 
                     // REMOVING JOB DATA FROM CHEF'S CHILD
                     Constants.databaseReference()
+                            .child(Constants.USERS)
+                            .child(Constants.CHEF)
                             .child(model.uidChef)
                             .child(Constants.ACCEPTED_JOBS)
                             .child(model.push_key)
@@ -210,5 +215,11 @@ public class AcceptedJobsFragment extends Fragment {
             }
         }
 
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause: ");
     }
 }
